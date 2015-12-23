@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Login</title>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/function.js"></script>
+</head>
+<body ng-app="fastGroupChat" ng-controller="mainController">
+<div id="naver_id_login"></div>
+
+<script>
+//naver id login
+var naver_id_login = new naver_id_login("_rBwHIuu66OZ_2dzSYcy", "http://10.115.80.46:8080/hello");
+naver_id_login.setButton("white", 2,40);
+naver_id_login.setDomain("");
+naver_id_login.setState("fastestGroupChatLogin");
+naver_id_login.init_naver_id_login();
+
+function testcallback()
+{
+    console.log(naver_id_login.getProfileData('email'));
+    console.log(naver_id_login.getProfileData('name'));
+    console.log(naver_id_login.getProfileData('nickname'));
+    console.log(naver_id_login.getProfileData('gender'));
+    console.log(naver_id_login.getProfileData('age'));
+    console.log(naver_id_login.getProfileData('id'));
+    console.log(naver_id_login.getProfileData('enc_id'));
+    
+    $("#nickname").val(naver_id_login.getProfileData('nickname'));
+    
+}
+naver_id_login.get_naver_userprofile("testcallback()");	
+
+
+</script>
+
+<div class="container">
+	
+	<ng-view></ng-view>
+
+    <ul id="messages"></ul>
+</div>
+
+</body>
+
+</html>

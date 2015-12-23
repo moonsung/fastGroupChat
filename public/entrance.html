@@ -1,0 +1,12 @@
+<!-- 
+	Chatting Room Entrance Area
+ -->
+
+	<div class="rooms" ng-repeat="room in rooms">
+		<input type="checkbox" class="roomNames" ng-click="joinRoom(room)" value="{{room}}">{{room}}
+	</div>
+	
+	<div>
+		<input type="text" ng-model = "room.name">
+		<button ng-click="makeRoom()">make a room</button>
+	</div>

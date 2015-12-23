@@ -1,0 +1,42 @@
+<html>
+<head>
+ 
+    <title>Welcome Fastest Group Chat</title>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+	<script>
+		//get_naver_userprofile 동작후 callback 될 function
+		function testcallback()
+		{
+		    alert(naver_id_login.getProfileData('email'));
+		    alert(naver_id_login.getProfileData('name'));
+		    alert(naver_id_login.getProfileData('age'));
+		}
+		naver_id_login.get_naver_userprofile("testcallback()");
+	</script>
+ 
+</head>
+<body>
+	<b class="username"></b>
+    <b>Send message</b><p>
+    Message  <input type="text" id="msgbox"/>
+    <br>
+    <span id="msgs"></span>
+ 
+    <script type="text/javascript">
+        var socket = io.connect('http://localhost:8080');
+        $("#msgbox").keyup(function(event) {
+            if (event.which == 13) {
+                socket.emit('fromclient',{msg:$('#msgbox').val()});
+                $('#msgbox').val('');
+            }
+        });
+        socket.on('toclient',function(data){
+            console.log(data.msg);
+            $('#msgs').append(data.msg+'<BR>');
+        });
+    </script>
+</body>
+</html>
